@@ -2,6 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="./manifest.json">
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('./service-worker.js').then(function(r){console.log('SW OK',r.scope)}).catch(function(e){console.log('SW err',e)})})}
+var deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;var b=document.createElement('button');b.id='pwa-btn';b.innerHTML='📱 ثبّتي المنصة';b.style.cssText='position:fixed;bottom:100px;left:20px;background:linear-gradient(135deg,#3B5998,#213555);color:#fff;border:none;padding:12px 20px;border-radius:30px;font-weight:800;font-size:0.85rem;font-family:inherit;box-shadow:0 6px 20px rgba(59,89,152,0.4);cursor:pointer;z-index:99998;';b.onclick=function(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(){deferredPrompt=null;b.remove()})}};document.body.appendChild(b)});
+window.addEventListener('appinstalled',function(){var b=document.getElementById('pwa-btn');if(b)b.remove()});
+</script>  
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>منصة ملاذ المعلم — الإصدار النهائي المتكامل</title>
 <meta name="mobile-web-app-capable" content="yes">
